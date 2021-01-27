@@ -1,0 +1,50 @@
+{
+    "env": {
+        "doc": "Environment variable",
+        "format": ["development", "production", "test", "staging"],
+        "default": "development",
+        "env": "NODE_ENV"
+    },
+    "port": {
+        "doc": "Port number",
+        "format": "port",
+        "default": 3000,
+        "env": "PORT"
+    },
+    "dbs": [
+        {
+            "name": {
+                "doc": "DB name",
+                "format": "String",
+                "default": "core",
+                "env": "DB_NAME1"
+            },
+            "host": {
+                "doc": "DB host name",
+                "format": "String",
+                "default": "localhost",
+                "env": "DB_HOST1"
+            },
+            "port": {
+                "doc": "Port number",
+                "format": "port",
+                "default": 27017,
+                "env": "DB_PORT1"
+            }
+        }
+    ],
+    "sessions": {
+        "store": {
+            "doc": "Store for sessions",
+            "format": "String",
+            "default": "mongodb",
+            "env": "STORE_NAME"
+        },
+        "maxAge" : {
+            "doc": "Maxage for session",
+            "format": "Number",
+            "default": 900000,
+            "env": "STORE_NAME"
+        }
+    }
+}

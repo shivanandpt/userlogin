@@ -1,0 +1,42 @@
+{
+    "env": {
+        "doc": "Environment variable",
+        "format": ["development", "production", "test", "staging"],
+        "default": "development",
+        "env": "NODE_ENV"
+    },
+    "port": {
+        "doc": "Port number",
+        "format": "port",
+        "default": 3000,
+        "env": "PORT"
+    },
+    "dbs": [
+        {
+            "name": {
+                "doc": "DB name",
+                "format": "String",
+                "default": "core",
+                "env": "DB_NAME"
+            },
+            "host": {
+                "doc": "DB host name",
+                "format": "String",
+                "default": "127.0.,0.1",
+                "env": "DB_HOST"
+            },
+            "user": {
+                "doc": "DB user name",
+                "format": "String",
+                "default": "root",
+                "env": "DB_USER"
+            },
+            "password": {
+                "doc": "DB password",
+                "format": "String",
+                "default": "password",
+                "env": "DB_PASSWORD"
+            }
+        }
+    ]
+}

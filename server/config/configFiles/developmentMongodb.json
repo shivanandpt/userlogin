@@ -1,0 +1,25 @@
+{
+    "env": "development",
+    "port": 3000,
+    "dbs": [
+        {
+            "name": "core",
+            "host": "localhost",
+            "port": 27017
+        },
+        {
+            "name": "login",
+            "host": "localhost",
+            "port": 27017
+        },
+        {
+            "name": "user",
+            "host": "localhost",
+            "port": 27017
+        }   
+    ], 
+    "sessions": {
+        "store": "mongodb",
+        "maxAge": 900000
+    }
+}
