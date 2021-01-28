@@ -38,5 +38,27 @@
                 "env": "DB_PASSWORD"
             }
         }
-    ]
+    ],
+    "sessions": {
+        "store": {
+            "doc": "Store for sessions",
+            "format": "String",
+            "default": "mongodb",
+            "env": "STORE_NAME"
+        },
+        "maxAge" : {
+            "doc": "Maxage for session",
+            "format": "Number",
+            "default": 900000,
+            "env": "STORE_NAME"
+        }
+    },
+    "passportAuthentication": {
+        "strategyType": {
+            "doc": "Gives strategy used",
+            "format": "String",
+            "default": "local",
+            "env": "STRATEGY_TYPE"
+        }
+    }
 }

@@ -9,5 +9,19 @@
             "password": "password"
           
         }
+    ],
+    "sessions": {
+        "store": "mongodb",
+        "maxAge": 900000
+    },
+    "passportAuthentication" :[
+        {
+            "strategyType": "local",
+            "callbackUrl": "http://localhost:3000"
+        },
+        {
+            "strategyType": "google",
+            "callbackUrl": "http://localhost:3000"
+        }
     ]
 }

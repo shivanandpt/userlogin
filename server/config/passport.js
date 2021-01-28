@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 var User = require('../models/userModel');
 
 passport.use(new LocalStrategy(
@@ -18,6 +19,19 @@ passport.use(new LocalStrategy(
             return done(null, user);
         })
     }
+));
+
+passport.use(new GoogleStrategy({
+    consumerKey: GOOGLE_CONSUMER_KEY,
+    consumerSecret: GOOGLE_CONSUMER_SECRET,
+    callbackURL: "http://www.example.com/auth/google/callback"
+  },
+  function(token, tokenSecret, profile, done) {
+      User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        console.log("user, err", user, errr);
+        return done(err, user);
+      });
+  }
 ));
 
 passport.serializeUser((user, done) => {

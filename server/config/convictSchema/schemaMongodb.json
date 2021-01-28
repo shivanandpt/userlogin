@@ -46,5 +46,19 @@
             "default": 900000,
             "env": "STORE_NAME"
         }
-    }
+    },
+    "passportAuthentication":[{
+        "strategyType": {
+            "doc": "Gives strategy used",
+            "format": "String",
+            "default": "local",
+            "env": "STRATEGY_TYPE"
+        },
+        "callbackUrl": {
+            "doc": "Call-back Url",
+            "format": "String",
+            "default": "http://localhost:3000",
+            "env": "PASSPORT_CALLBACK_URL"
+        }
+    }] 
 }
