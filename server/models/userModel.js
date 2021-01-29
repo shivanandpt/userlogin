@@ -5,8 +5,10 @@ var userSchema = new Schema({
     googleId: {
         type: String,
         unique: true,
-        required: true,
-        default:'notGoogleSignup'
+    },
+    facebookId: {
+        type: String,
+        unique: true,
     },
     email: {
         type: String,
@@ -35,6 +37,11 @@ var userSchema = new Schema({
     },
     salt: {
         type: String,
+    },
+    provider: {
+        type: String,
+        required: true,
+        default:'local'
     }
 });
 

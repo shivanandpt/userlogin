@@ -31,8 +31,8 @@ module.exports = function (conf, dbs) {
         passportStrategy.googleStrategy == 'google') {
         var GoogleStrategy = require('passport-google-oauth2').Strategy;
         passport.use(new GoogleStrategy({
-            clientID: process.env.GOOGLE_CONSUMER_KEY,
-            clientSecret: process.env.GOOGLE_CONSUMER_SECRET,
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: passportStrategy.googleStrategyCallbackUrl,
             passReqToCallback: true
           },
@@ -49,7 +49,44 @@ module.exports = function (conf, dbs) {
                     email: profile.email,
                     name: profile.name.givenName,
                     familyName: profile.name.familyName,
-                    mobile: "1234567890"
+                    mobile: "1234567890",
+                    provider: "google"
+                });
+                newUser.save(function (err, user) {
+                    if (err) return done(err);
+                    console.log(user);
+                    return done(null, newUser);
+                })
+                
+              });
+          }
+        ));
+    }
+    if (passportStrategy.facebookStrategy &&
+        passportStrategy.facebookStrategy == 'facebook') {
+        var FacebookStrategy = require('passport-facebook').Strategy;
+        passport.use(new FacebookStrategy({
+            clientID: process.env.FACEBOOK_APP_ID,
+            clientSecret: process.env.FACEBOOK_APP_SECRET,
+            callbackURL: passportStrategy.facebookStrategyCallbackUrl,
+            profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
+          },
+          function(accessToken, refreshToken, profile, done) {
+              console.log(profile)
+              User.findOne({ facebookId: profile.id }, function (err, user) {
+                if(err) {
+                    return done(err);
+                }
+                if (user) {
+                    return done(null, user);
+                }
+                let newUser = new User({ 
+                    facebookId: String(profile.id),
+                    email: profile.email || profile.emails[0].value,
+                    name: profile.name.givenName || profile.displayName ,
+                    familyName: profile.name.familyName || "",
+                    mobile: "1234567890",
+                    provider: "facebook"
                 });
                 newUser.save(function (err, user) {
                     if (err) return done(err);

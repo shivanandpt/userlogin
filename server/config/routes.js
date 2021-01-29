@@ -30,10 +30,15 @@ module.exports = function (app, dbs) {
         console.log(req.sessionID)
         res.send(`You got the login page!\n`)
     });
-
-    app.get('/',   passport.authenticate('google', { scope:
-        [ 'profile', 'email' ] }
-  ),(req, res) => {
+    app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+    app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { successRedirect: '/login',
+                                      failureRedirect: '/login', 
+                                      scope: ['email']} ));
+    app.get('/',   
+    // passport.authenticate('google', { scope:
+    //     [ 'profile', 'email' ] }),
+        (req, res) => {
         console.log("2 sesssionID ", req.sessionID);
         res.send('you just hit the home page' + req.sessionID);
     });

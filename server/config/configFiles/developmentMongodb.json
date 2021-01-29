@@ -28,6 +28,6 @@
         "googleStrategy": "google",
         "googleStrategyCallbackUrl": "http://localhost:3000",
         "facebookStrategy": "facebook",
-        "facebookStrategyCallbackUrl": "http://localhost:3000"
+        "facebookStrategyCallbackUrl": "http://localhost:3000/auth/facebook/callback"
     }
 }
