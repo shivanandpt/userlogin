@@ -5,7 +5,7 @@ const passport = require('passport');
 const util = require('./util');
 
 module.exports = function (app, conf, dbs) {
-  require('./passport');
+  require('./passport')(conf, dbs);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(session(util.setSessionConfig(conf, session, dbs)));

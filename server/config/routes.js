@@ -17,13 +17,23 @@ module.exports = function (app, dbs) {
     function(req, res) {
         res.redirect('/');
     });
+
+    app.get('/login/google', 
+    passport.authenticate('google', { scope:
+        [ 'profile', 'email' ] }),
+    function(req, res) {
+        console.log("response ", res);
+        res.redirect('/');
+    });
     app.get('/login', (req, res) => {
         console.log('Inside GET /login callback function')
         console.log(req.sessionID)
         res.send(`You got the login page!\n`)
     });
 
-    app.get('/', (req, res) => {
+    app.get('/',   passport.authenticate('google', { scope:
+        [ 'profile', 'email' ] }
+  ),(req, res) => {
         console.log("2 sesssionID ", req.sessionID);
         res.send('you just hit the home page' + req.sessionID);
     });

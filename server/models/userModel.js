@@ -2,6 +2,12 @@ const crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
+    googleId: {
+        type: String,
+        unique: true,
+        required: true,
+        default:'notGoogleSignup'
+    },
     email: {
         type: String,
         unique: true,
@@ -10,6 +16,9 @@ var userSchema = new Schema({
     name: {
         type: String,
         required: true
+    },
+    familyName: {
+        type: String,
     },
     mobile: {
         type: Number,
@@ -23,11 +32,9 @@ var userSchema = new Schema({
     },
     hash: {
         type: String,
-        required: true
     },
     salt: {
         type: String,
-        required: true
     }
 });
 

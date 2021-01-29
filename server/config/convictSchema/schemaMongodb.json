@@ -47,18 +47,42 @@
             "env": "STORE_NAME"
         }
     },
-    "passportAuthentication":[{
-        "strategyType": {
-            "doc": "Gives strategy used",
+    "passportStrategy":{
+        "localStrategy": {
+            "doc": "Strategy type",
             "format": "String",
             "default": "local",
-            "env": "STRATEGY_TYPE"
+            "env": "LOCAL_STRATEGY"
         },
-        "callbackUrl": {
+        "localStrategyCallbackUrl": {
             "doc": "Call-back Url",
             "format": "String",
             "default": "http://localhost:3000",
-            "env": "PASSPORT_CALLBACK_URL"
+            "env": "LOCAL_STRATEGY_CALLBACK_URL"
+        },
+        "googleStrategy": {
+            "doc": "Strategy type",
+            "format": "String",
+            "default": "google",
+            "env": "GOOGLE_STRATEGY"
+        },
+        "googleStrategyCallbackUrl": {
+            "doc": "Call-back Url",
+            "format": "String",
+            "default": "http://localhost:3000",
+            "env": "GOOGLE_STRATEGY_CALLBACK_URL"
+        },
+        "facebookStrategy": {
+            "doc": "Strategy type",
+            "format": "String",
+            "default": "facebook",
+            "env": "FACEBOOK_STRATEGY"
+        },
+        "facebookStrategyCallbackUrl": {
+            "doc": "Call-back Url",
+            "format": "String",
+            "default": "http://localhost:3000",
+            "env": "FACEBOOK_STRATEGY_CALLBACK_URL"
         }
-    }] 
+    }
 }

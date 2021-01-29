@@ -22,14 +22,12 @@
         "store": "mongodb",
         "maxAge": 900000
     },
-    "passportAuthentication" :[
-        {
-            "strategyType": "local",
-            "callbackUrl": "http://localhost:3000"
-        },
-        {
-            "strategyType": "google",
-            "callbackUrl": "http://localhost:3000"
-        }
-    ]
+    "passportStrategy" :{
+        "localStrategy": "local",
+        "localStrategyCallbackUrl": "http://localhost:3000",
+        "googleStrategy": "google",
+        "googleStrategyCallbackUrl": "http://localhost:3000",
+        "facebookStrategy": "facebook",
+        "facebookStrategyCallbackUrl": "http://localhost:3000"
+    }
 }
