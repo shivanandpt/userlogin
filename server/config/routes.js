@@ -1,5 +1,5 @@
 
-module.exports = function (app, dbs) {
+module.exports = function (app, conf, dbs) {
 
     const passport = require('passport');
     
@@ -12,33 +12,66 @@ module.exports = function (app, dbs) {
     //Routes are assigned to app and created
    
     // create the login get and post routes
-    app.post('/login', 
-    passport.authenticate('local', { failureRedirect: '/login' }),
-    function(req, res) {
-        res.redirect('/');
-    });
+  
+    const passportStrategy = conf.get("passportStrategy");
 
-    app.get('/login/google', 
-    passport.authenticate('google', { scope:
-        [ 'profile', 'email' ] }),
-    function(req, res) {
-        console.log("response ", res);
-        res.redirect('/');
-    });
-    app.get('/login', (req, res) => {
+    if (passportStrategy.localStrategy &&
+        passportStrategy.localStrategy == 'local') {
+        app.post('auth/login', passport.authenticate('local', { failureRedirect: '/auth/login' }),
+        function(req, res) {
+            res.redirect('/home');
+        });
+    }
+    if (passportStrategy.googleStrategy &&
+        passportStrategy.googleStrategy == 'google') {
+        app.get('/auth/google', passport.authenticate('google', { scope: [ 'profile', 'email' ] }));
+        app.get('/auth/google/callback',passport.authenticate('google', {
+            successRedirect: '/home',
+            failureRedirect: '/login',
+            scope: [ 'profile', 'email' ] 
+        }));
+    }
+    if (passportStrategy.facebookStrategy &&
+        passportStrategy.facebookStrategy == 'facebook') {
+        app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+        app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+            successRedirect: '/home',
+            failureRedirect: '/login',
+            scope: ['email']
+        }));
+    }
+    if (passportStrategy.twitterStrategy &&
+        passportStrategy.twitterStrategy == 'twitter') {
+        app.get('/auth/twitter', passport.authenticate('twitter'));
+        app.get('/auth/twitter/callback', passport.authenticate('twitter', {
+            successRedirect: '/home',
+            failureRedirect: '/login'
+        }));
+    }
+    if (passportStrategy.githubStrategy &&
+        passportStrategy.githubStrategy == 'github') {
+        app.get('/auth/github', passport.authenticate('github'));
+        app.get('/auth/github/callback', passport.authenticate('github', {
+            successRedirect: '/home',
+            failureRedirect: '/login'
+        }));
+    }
+    if (passportStrategy.linkedinStrategy &&
+        passportStrategy.linkedinStrategy == 'linkedin') {
+        app.get('/auth/linkedin', passport.authenticate('linkedin'));
+        app.get('/auth/linkedin/callback',passport.authenticate('linkedin', {
+            successRedirect: '/home',
+            failureRedirect: '/login'
+        })); 
+    }
+    
+    app.get('/home', (req, res) => {
         console.log('Inside GET /login callback function')
         console.log(req.sessionID)
         res.send(`You got the login page!\n`)
     });
-    app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
-    app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { successRedirect: '/login',
-                                      failureRedirect: '/login', 
-                                      scope: ['email']} ));
-    app.get('/',   
-    // passport.authenticate('google', { scope:
-    //     [ 'profile', 'email' ] }),
-        (req, res) => {
+
+    app.get('/', (req, res) => {
         console.log("2 sesssionID ", req.sessionID);
         res.send('you just hit the home page' + req.sessionID);
     });

@@ -10,6 +10,18 @@ var userSchema = new Schema({
         type: String,
         unique: true,
     },
+    twitterId: {
+        type: String,
+        unique: true,
+    },
+    githubId: {
+        type: String,
+        unique: true,
+    },
+    linkedinId: {
+        type: String,
+        unique: true,
+    },
     email: {
         type: String,
         unique: true,
@@ -42,6 +54,14 @@ var userSchema = new Schema({
         type: String,
         required: true,
         default:'local'
+    },
+    verified: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    verifiedAt : {
+        type: Number
     }
 });
 

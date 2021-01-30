@@ -46,22 +46,23 @@ module.exports = function (conf, dbs) {
                 }
                 let newUser = new User({ 
                     googleId: profile.id,
-                    email: profile.email,
-                    name: profile.name.givenName,
-                    familyName: profile.name.familyName,
+                    email: profile.email || profile.emails && profile.emails[0].value,
+                    name: profile.name && profile.name.givenName || profile.displayName,
+                    familyName: profile.name && profile.name.familyName || "",
                     mobile: "1234567890",
-                    provider: "google"
+                    provider: "google",
+                    verified:true,
+                    verifiedAt: new Date().getTime()
                 });
                 newUser.save(function (err, user) {
                     if (err) return done(err);
                     console.log(user);
                     return done(null, newUser);
-                })
-                
+                });
               });
-          }
-        ));
+          }));
     }
+
     if (passportStrategy.facebookStrategy &&
         passportStrategy.facebookStrategy == 'facebook') {
         var FacebookStrategy = require('passport-facebook').Strategy;
@@ -81,23 +82,135 @@ module.exports = function (conf, dbs) {
                     return done(null, user);
                 }
                 let newUser = new User({ 
-                    facebookId: String(profile.id),
-                    email: profile.email || profile.emails[0].value,
-                    name: profile.name.givenName || profile.displayName ,
-                    familyName: profile.name.familyName || "",
+                    facebookId: profile.id,
+                    email: profile.email || profile.emails && profile.emails[0].value,
+                    name: profile.name && profile.name.givenName || profile.displayName,
+                    familyName: profile.name && profile.name.familyName || "",
                     mobile: "1234567890",
-                    provider: "facebook"
+                    provider: "facebook",
+                    verified:true,
+                    verifiedAt: new Date().getTime()
                 });
                 newUser.save(function (err, user) {
                     if (err) return done(err);
                     console.log(user);
                     return done(null, newUser);
-                })
-                
+                });
               });
-          }
-        ));
+          }));
     }
+
+    if (passportStrategy.twitterStrategy &&
+        passportStrategy.twitterStrategy == 'twitter') {
+        var TwitterStrategy = require('passport-twitter').Strategy;
+        passport.use(new TwitterStrategy({
+            consumerKey: process.env.TWITTER_CONSUMER_KEY,
+            consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+            callbackURL: "http://localhost:3000/auth/twitter/callback",
+            includeEmail: true,
+          },
+          function(token, tokenSecret, profile, cb) {
+              console.log(profile)
+              User.findOne({ twitterId: profile.id }, function (err, user) {
+                if(err) {
+                    return cb(err);
+                }
+                if (user) {
+                    return cb(null, user);
+                }
+                let newUser = new User({ 
+                    twitterId: profile.id,
+                    email: profile.email || profile.emails && profile.emails[0].value,
+                    name: profile.name && profile.name.givenName || profile.displayName,
+                    familyName: profile.name && profile.name.familyName || "",
+                    mobile: "1234567890",
+                    provider: "twitter",
+                    verified:true,
+                    verifiedAt: new Date().getTime()
+                });
+                newUser.save(function (err, user) {
+                    if (err) return done(err);
+                    console.log(user);
+                    return cb(null, newUser);
+                });
+              });
+          }));
+    }
+
+    if (passportStrategy.githubStrategy &&
+        passportStrategy.githubStrategy == 'github') {
+        var GitHubStrategy = require('passport-github2').Strategy;
+        passport.use(new GitHubStrategy({
+            clientID: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            callbackURL: "http://localhost:3000/auth/github/callback",
+            scope: 'user:email'
+          },
+          function(accessToken, refreshToken, profile, done) {
+              console.log(profile)
+              User.findOne({ githubId: profile.id }, function (err, user) {
+                if(err) {
+                    return done(err);
+                }
+                if (user) {
+                    return done(null, user);
+                }
+                let newUser = new User({ 
+                    githubId: String(profile.id),
+                    email: profile.email || profile.emails && profile.emails[0].value,
+                    name: profile.name && profile.name.givenName || profile.displayName,
+                    familyName: profile.name && profile.name.familyName || "",
+                    mobile: "1234567890",
+                    provider: "github",
+                    verified:true,
+                    verifiedAt: new Date().getTime()
+                });
+                newUser.save(function (err, user) {
+                    if (err) return done(err);
+                    console.log(user);
+                    return done(null, newUser);
+                });
+              });
+          }));
+    }
+
+    if (passportStrategy.linkedinStrategy &&
+        passportStrategy.linkedinStrategy == 'linkedin') {
+        var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+        passport.use(new LinkedInStrategy({
+            clientID: process.env.LINKEDIN_KEY,
+            clientSecret: process.env.LINKEDIN_SECRET,
+            callbackURL: "http://localhost:3000/auth/linkedin/callback",
+            scope: ['r_emailaddress', 'r_liteprofile']
+          },
+          function(accessToken, refreshToken, profile, done) {
+              console.log(profile)
+              User.findOne({ linkedinId: profile.id }, function (err, user) {
+                if(err) {
+                    return done(err);
+                }
+                if (user) {
+                    return done(null, user);
+                }
+                let newUser = new User({ 
+                    linkedinId: profile.id,
+                    email: profile.email || profile.emails && profile.emails[0].value,
+                    name: profile.name && profile.name.givenName || profile.displayName,
+                    familyName: profile.name && profile.name.familyName || "",
+                    mobile: "1234567890",
+                    provider: "linkedin",
+                    verified:true,
+                    verifiedAt: new Date().getTime()
+                });
+                newUser.save(function (err, user) {
+                    if (err) return done(err);
+                    console.log(user);
+                    return done(null, newUser);
+                });
+              });
+          }));
+    }
+
     passport.serializeUser((user, done) => {
         console.log('Inside serializeUser callback. User id is saveto the session file store here')
         return done(null, user.id);

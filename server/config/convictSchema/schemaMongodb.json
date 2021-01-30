@@ -83,6 +83,42 @@
             "format": "String",
             "default": "http://localhost:3000",
             "env": "FACEBOOK_STRATEGY_CALLBACK_URL"
+        },
+        "twitterStrategy": {
+            "doc": "Strategy type",
+            "format": "String",
+            "default": "twitter",
+            "env": "TWITTER_STRATEGY"
+        },
+        "twitterStrategyCallbackUrl": {
+            "doc": "Call-back Url",
+            "format": "String",
+            "default": "http://localhost:3000",
+            "env": "TWITTER_STRATEGY_CALLBACK_URL"
+        },
+        "githubStrategy": {
+            "doc": "Strategy type",
+            "format": "String",
+            "default": "github",
+            "env": "GITHUB_STRATEGY"
+        },
+        "githubStrategyCallbackUrl": {
+            "doc": "Call-back Url",
+            "format": "String",
+            "default": "http://localhost:3000",
+            "env": "GITHUB_STRATEGY_CALLBACK_URL"
+        },
+        "linkedinStrategy": {
+            "doc": "Strategy type",
+            "format": "String",
+            "default": "lionkedin",
+            "env": "LINKEDIN_STRATEGY"
+        },
+        "linkedinStrategyCallbackUrl": {
+            "doc": "Call-back Url",
+            "format": "String",
+            "default": "http://localhost:3000",
+            "env": "LINKEDIN_STRATEGY_CALLBACK_URL"
         }
     }
 }
