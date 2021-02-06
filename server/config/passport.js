@@ -11,7 +11,6 @@ module.exports = function (conf, dbs) {
         passport.use(new LocalStrategy(
             function (username, password, done) {
                 User.findOne({ email: username }, function (err, user) {
-                    
                     if (err) {
                         return done(err);
                     }
@@ -21,6 +20,7 @@ module.exports = function (conf, dbs) {
                     if(!user.validatePassword(password)) {
                         return done(null, false);
                     }
+                    /* add code to verify user if not verified here */
                     return done(null, user);
                 })
             }

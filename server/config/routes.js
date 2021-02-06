@@ -64,7 +64,7 @@ module.exports = function (app, conf, dbs) {
             failureRedirect: '/login'
         })); 
     }
-    
+  
     app.get('/home', (req, res) => {
         console.log('Inside GET /login callback function')
         console.log(req.sessionID)
@@ -77,6 +77,16 @@ module.exports = function (app, conf, dbs) {
     });
     app.use('/user', userRoutes);
 
+ 
+    app.use(function (err, req, res, next) {
+        
+        res.status(err.status || 500);
+        res.send({
+            success: false,
+            message: err.message,
+            error: err
+        });
+    });
 
     // app.post('/login',(req, res) => {
     //     console.log('Inside POST /login callback function');
