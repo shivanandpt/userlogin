@@ -67,7 +67,6 @@ var userSchema = new Schema({
 
 userSchema.methods.setPassword = function (password) {
     this.salt = crypto.randomBytes(16).toString('hex');
-    console.log("________", password, this.salt);
     this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 512, 'sha512').toString('hex');
 };
 
@@ -75,6 +74,33 @@ userSchema.methods.validatePassword = function (password) {
     let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 512, 'sha512').toString('hex');
     return hash === this.hash;
 };
+
+userSchema.method.getName = function () {
+    return this.name;
+};
+
+userSchema.method.getEmail = function () {
+    return this.email;
+};
+
+userSchema.method.userVerified = function () {
+    return this.verified;
+};
+
+userSchema.method.getFullName = function () {
+    return this.name + " " + this.familyName;
+};
+
+userSchema.method.getUserPorfile = function () {
+    return {
+        email: this.email,
+        name: this.name,
+        mobile: this.mobile,
+        familyName: this.familyName,
+        verified: this.verified
+    };
+};
+
 
 module.exports = function (connection) {
     return connection.core.model('User', userSchema);;
