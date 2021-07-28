@@ -1,0 +1,39 @@
+{
+    "env": "test",
+    "port": 3000,
+    "email": {
+        "host": "",
+        "port": "",
+        "auth": {
+            "user": "",
+            "pass": ""
+        }
+    },
+    "dbs": [
+        {
+            "name": "core",
+            "host": "127.0.0.1",
+            "user": "root",
+            "password": "password"
+          
+        }
+    ],
+    "sessions": {
+        "store": "mongodb",
+        "maxAge": 900000
+    },
+    "passportStrategy" :{
+        "localStrategy": "local",
+        "localStrategyCallbackUrl": "http://localhost:3000",
+        "googleStrategy": "google",
+        "googleStrategyCallbackUrl": "http://localhost:3000/auth/google/callback",
+        "facebookStrategy": "facebook",
+        "facebookStrategyCallbackUrl": "http://localhost:3000/auth/facebook/callback",
+        "twitterStrategy": "twitter",
+        "twitterStrategyCallbackUrl": "http://localhost:3000/auth/twitter/callback",
+        "githubStrategy": "github",
+        "githubStrategyCallbackUrl": "http://localhost:3000/auth/github/callback",
+        "linkedinStrategy": "linkedin",
+        "linkedinStrategyCallbackUrl": "http://localhost:3000/auth/linkedin/callback"
+    }
+}
