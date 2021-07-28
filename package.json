@@ -4,21 +4,31 @@
   "description": "store configs for project ",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:server": "nodemon --ignore sessions/ server.js"
+    "start-dev": "DEBUG=testApp nodemon --ignore sessions/  src/server/server.js",
+    "prestart-dev": "npm run lint-fix",
+    "start-debug": "DEBUG=* nodemon server.js",
+    "lint": "npx eslint *.js",
+    "lint-fix": "npx eslint src/server/*.js --fix",
+    "test": "mocha test/*.test.js",
+    "test-coverage": "nyc --reporter=html mocha",
+    "show-coverage": "xdg-open coverage/index.html"
   },
   "author": "shivanand",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chalk": "^4.1.1",
     "connect-mongo": "^3.2.0",
     "convict": "^6.0.0",
+    "debug": "^2.6.9",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.26",
+    "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.4.17",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-github2": "^0.1.12",
@@ -26,8 +36,31 @@
     "passport-google-oauth2": "^0.2.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.4",
+    "passport-twitter": "^0.1.5",
     "session-file-store": "^1.4.0",
     "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "mocha": "^9.0.3",
+    "nodemon": "^2.0.12",
+    "nyc": "^15.1.0"
+  },
+  "nodemonConfig": {
+    "PORT": 3000,
+    "APP": "testAPP",
+    "MORGAN_OPTIONS": "dev",
+    "ignore": [
+      "test/*",
+      "docs/*"
+    ],
+    "delay": 2500
+  },
+  "nyc": {
+    "include": "*.js",
+    "exclude": "**/*.test.js"
   }
 }
