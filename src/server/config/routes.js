@@ -65,11 +65,11 @@ module.exports = function (app, conf, db) {
         })); 
     }
   
-    app.get('/home', (req, res) => {
-        console.log('Inside GET /login callback function')
-        console.log(req.sessionID)
-        res.send(`You got the login page!\n`)
-    });
+    // app.get('/home', (req, res) => {
+    //     console.log('Inside GET /login callback function')
+    //     console.log(req.sessionID)
+    //     res.send(`You got the login page!\n`)
+    // });
 
     app.get('/', (req, res) => {
         console.log("2 sesssionID ", req.sessionID);
