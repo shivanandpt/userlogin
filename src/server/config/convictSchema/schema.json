@@ -1,0 +1,103 @@
+{
+  
+    "env": {
+        "doc": "Environment variable",
+        "format": ["development", "production", "test", "staging"],
+        "default": "development",
+        "env": "NODE_ENV"
+    },
+    "port": {
+        "doc": "Port number",
+        "format": "port",
+        "default": 3000,
+        "env": "PORT"
+    },
+    "email": {
+        "port": {
+            "doc": "Port number",
+            "format": "String",
+            "default": "2525",
+            "env": "EMAIL_PORT"
+        },
+        "host": {
+            "doc": "Port number",
+            "format": "String",
+            "default": "smtp.mailtrap.io",
+            "env": "EMAIL_HOST"
+        },
+        "auth" : {
+            "user": {
+                "doc": "User name/email",
+                "format": "String",
+                "default": "user",
+                "env": "EMAIL_AUTH_USER"
+            },
+            "pass": {
+                "doc": "User password",
+                "format": "String",
+                "default": "pass",
+                "env": "EMAIL_AUTH_PASSWORD"
+            }
+        }
+    },
+    "db": {
+        "name": {
+            "doc": "DB name",
+            "format": "String",
+            "default": "core",
+            "env": "DB_NAME"
+        },
+        "host": {
+            "doc": "DB host name",
+            "format": "String",
+            "default": "localhost",
+            "env": "DB_HOST1"
+        },
+        "port": {
+            "doc": "Port number",
+            "format": "port",
+            "default": 27017,
+            "env": "DB_PORT1"
+        },
+        "username": {
+            "doc": "User name",
+            "format": "String",
+            "default": "test",
+            "env": "DB_USER_NAME"
+        },
+        "password": {
+            "doc": "DB password",
+            "format": "String",
+            "default": "test",
+            "env": "DB_PASSSWORD"
+        }
+    }
+    ,
+    "sessions": {
+        "store": {
+            "doc": "Store for sessions",
+            "format": "String",
+            "default": "mongodb",
+            "env": "STORE_NAME"
+        },
+        "maxAge" : {
+            "doc": "Maxage for session",
+            "format": "Number",
+            "default": 900000,
+            "env": "STORE_NAME"
+        }
+    },
+    "passportStrategy":[{
+        "strategyName": {
+            "doc": "Strategy Name",
+            "fomat": "String",
+            "deaful": "local"
+        },
+        "scope": [],
+        "callbackUrl": {
+            "doc": "Strategy callback url",
+            "fomat": "String",
+            "deaful": "http://localhost:3000"
+        }
+    }]
+}

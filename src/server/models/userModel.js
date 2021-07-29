@@ -101,7 +101,6 @@ userSchema.method.getUserPorfile = function () {
     };
 };
 
-
-module.exports = function (connection) {
-    return connection.core.model('User', userSchema);;
+module.exports = function (db) {
+    return db.model('User', userSchema);;
 };

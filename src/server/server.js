@@ -2,18 +2,18 @@ const debug = require('debug')(process.env.APP_NAME);
 const express = require('express');
 const chalk = require('chalk');
 const conf = require('./config/conf');
-const initializeDatabases = require('./config/db')(process.env.DB_TYPE, conf.get('dbs'));
+const initializeDatabases = require('./config/db')(conf.get('db'));
 const expressConfig = require('./config/express');
 const routes = require('./config/routes');
 
 const app = express();
 
-initializeDatabases.then((dbs) => {
+initializeDatabases.then((db) => {
   debug(chalk.green(`${process.env.DB_TYPE} Connected !!!`));
 
-  expressConfig(app, conf, dbs);
+  expressConfig(app, conf, db);
 
-  routes(app, conf, dbs);
+  routes(app, conf, db);
   app.listen(conf.get('port'), () => debug(`Listening on port ${
     chalk.green(conf.get('port'))}`));
 })

@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 
-var setSessionConfig = function (conf, session, dbs) {
+var setSessionConfig = function (conf, session, db) {
 
     let sessionConfig = {
         genid: (req) => { //The function is given req as the first argument
@@ -19,7 +19,7 @@ var setSessionConfig = function (conf, session, dbs) {
         sessionConfig.store = new FileStore(fileStoreOptions)
     } else {
         const MongoStore = require('connect-mongo')(session);
-        sessionConfig.store = new MongoStore({ mongooseConnection: dbs.core });
+        sessionConfig.store = new MongoStore({ mongooseConnection: db });
     }
     return sessionConfig;
 };

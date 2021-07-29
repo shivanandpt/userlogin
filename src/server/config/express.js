@@ -4,11 +4,11 @@ const passport = require('passport');
 
 const util = require('./util');
 
-module.exports = function (app, conf, dbs) {
-  require('./passport')(conf, dbs);
+module.exports = function (app, conf, db) {
+  require('./passport')(conf, db);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(session(util.setSessionConfig(conf, session, dbs)));
+  app.use(session(util.setSessionConfig(conf, session, db)));
   app.use(passport.initialize());
   app.use(passport.session());
 };

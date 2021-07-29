@@ -1,6 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
-var mysql = require('mysql');
 
 var createuDbUrl = db => "mongodb://" + db.host + ":" + db.port + "/";
 
@@ -29,50 +27,9 @@ var connectMongodb = function (url, db) {
     return mongoose.createConnection(url, options)
 };
 
+module.exports = async function(conf){
 
-var connectMySql = function (db) {
-
-    return new Promise((resolve, reject) =>{
-
-        var connection = mysql.createConnection({
-            host     : db.host,
-            user     : db.user,
-            password : db.password,
-            database : db.name
-        });
-        connection.connect(function(err) {
-            if (err) {
-              console.error('error connecting: ' + err.stack);
-              return reject(err);
-            }
-            return resolve(connection);
-          });
-    });
-};
-
-module.exports = async function(dbType, conf){
-
-    let dataBases
-    switch (dbType) {
-        case "Mongodb":
-            conf = conf.map(x => connectMongodb(createuDbUrl(x), x));
-            dataBases =  await Promise.all(conf);
-            break;
-
-        case "MySql":
-            conf = conf.map(x => connectMySql(x));
-            dataBases =  await Promise.all(conf);
-            break;
-
-        default:
-            conf = conf.map(x => connectMongodb(createuDbUrl(x), x));
-            dataBases =  await Promise.all(conf);
-            break;
-    }
-
-    return { 
-        core: dataBases[0],
-        login: dataBases[1],
-        user: dataBases[2]
-    };
+    let db;
+    db =  await connectMongodb(createuDbUrl(conf),conf);
+    return db;
 };

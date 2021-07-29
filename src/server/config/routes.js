@@ -1,10 +1,10 @@
 
-module.exports = function (app, conf, dbs) {
+module.exports = function (app, conf, db) {
 
     const passport = require('passport');
     
     //Models are created
-    var User = require('../models/userModel')(dbs);
+    var User = require('../models/userModel')(db);
 
     //Routes for model are created
     var userRoutes = require('../routes/userRoutes')(User);

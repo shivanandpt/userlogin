@@ -1,0 +1,46 @@
+{
+    "env": "development",
+    "port": 3000,
+    "email": {
+        "host": "smtp.mailtrap.io",
+        "port": "2525",
+        "auth": {
+            "user": "test",
+            "pass": "test"
+        }
+    },
+    "db": {
+            "name": "core",
+            "host": "localhost",
+            "port": 27017
+    },
+    "sessions": {
+        "store": "mongodb",
+        "maxAge": 900000
+    },
+    "passportStrategy" :[
+        {
+            "strategyName": "local",
+            "callbackUrl": "http://localhost:3000"
+        },
+        {
+            "strategyName": "google",
+            "callbackUrl": "http://localhost:3000/auth/google/callback"
+        },
+        {
+            "strategyName": "facebook",
+            "callbackUrl": "http://localhost:3000/auth/facebook/callback"
+        }, {
+            "strategyName": "twitter",
+            "callbackUrl": "http://localhost:3000/auth/twitter/callback"
+        },
+        {
+            "strategyName": "github",
+            "callbackUrl": "http://localhost:3000/auth/github/callback"
+        },
+        {
+            "strategyName": "linkedin",
+            "callbackUrl": "http://localhost:3000/auth/linkedin/callback"
+        }
+    ]    
+}

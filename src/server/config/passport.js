@@ -1,9 +1,9 @@
 
-module.exports = function (conf, dbs) {
+module.exports = function (conf, db) {
     
     const passport = require('passport');
     const passportStrategy = conf.get("passportStrategy");
-    var User = require('../models/userModel')(dbs);
+    var User = require('../models/userModel')(db);
 
     if (passportStrategy.localStrategy &&
         passportStrategy.localStrategy == 'local') {
